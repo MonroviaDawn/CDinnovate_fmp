@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{%block content %}
+<h1>basket</h1>
+<br>
+<h3> items:</h3>
+<ol>
+    <li>shout</li>
+    <li>dm</li>
+</ol>
+<div>
+    <ol>EMAIL</ol>
+</div>
+<div>
+    <a>HAVE YOU SEEN:</a>
+</div>
+<br>
+<div>
+    <h2><a href= "{{url_for("views.checkout")}}">CHECKOUT:</a> </h2>
+</div>
+{% endblock %}

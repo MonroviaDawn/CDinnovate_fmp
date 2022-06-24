@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>ToDo Manager</h1>
+<br>
+<div>
+    <h2>New Tasks</h2>
+
+    <ul>
+        {%for task in task_list %}
+        {% if "now" in}
+        <li>{{ task }}</li>
+        {% endfor %}
+
+    </ul>
+
+    <form action="/todos" method="POST">
+        <input type="text" name="task-input" id="task-input">
+        <input type="submit" value="Add Task"> 
+    </form>
+
+
+</div>
+{% endblock %}
