@@ -3,16 +3,17 @@
 console.log("yooo do you work")
 
 let add_to_cart_btns = document.getElementsByClassName("btn-outline-primary")
-// let main_container = document.getElementsByTagName('tbody')[0]
-// let quantity_fields = document.getElementsByClassName('num')
+let main_container = document.getElementsByTagName('tbody')[0]
+let quantity_fields = document.getElementsByClassName('num')
 
-// for(let i =0; i < quantity_fields.length; i++) {
-//     quantity_fields[i].addEventListener("click", updateTotal)
-// }
+for(let i =0; i < quantity_fields.length; i++) {
+    quantity_fields[i].addEventListener('click', updateTotal)
+}
 
 for(let i = 0; i < add_to_cart_btns.length; i++) {
-    add_to_cart_btns[i].addEventListener("click", addToCart)
+    add_to_cart_btns[i].addEventListener('click', addToCart)
 }
+
 
 function addToCart(event){
 
@@ -25,18 +26,43 @@ function addToCart(event){
 
     console.log(btn)
 
-    let itemContainer = document.createdElement('tr')
-    itemContainer.innerHTML = `<td><input class="uk-checkbox" type="checkbox"></td>    <td><img class="uk-preserve-width uk-border-circle" src="${itemImage}" width="40" alt=""></td>
+    let itemContainer = document.createElement('tr')
+    itemContainer.innerHTML = `<td><input class="uk-checkbox" type="checkbox"></td>
+    <td><img class="uk-preserve-width uk-border-circle" src="${itemImage}" width="40" alt=""></td>
     <td class="uk-table-link">
-        <h3 class="item-name">${itemName}</h3>
+        <h3 class = "item-name">${itemName}</h3>
     </td>
-    <td class="uk-text-truncate item-price"><h3>${ itemPrice}</h3></td>
-    <td><input type = 'number' class= 'num' value = '1'></td>
-    <td class="uk-text truncate total-price"><h3>${itemPrice} </h3></td>
+    <td class="uk-text-truncate item-price"><h3>${itemPrice}</h3></td>
+    <td><input type = 'number' class = 'num' value = '1'></td>
+    <td class="uk-text-truncate total-price"><h3>${itemPrice}</h3></td>
     <td><button class="uk-button uk-button-danger" type="button">Remove</button></td>`
 
     main_container.append(itemContainer)
 
+    for(let i =0; i < quantity_fields.length; i++) {
+        quantity_fields[i].addEventListener('change', updateTotal)
+    }
+    grandtotal()
+}
+function updateTotal(event){
+    number_of_items = event.target
+    number_of_items_parent = number_of_items.parentElement.parentElement
+    price_field = number_of_items_parent.getElementsByClassName('item-price')[0]
+    total_field = number_of_items_parent.getElementsByClassName('total-price')[0]
+    price_field_content = price_field.children[0].innerText.replace('$', '')
+    total_field.children[0].innerText = '£ ' + number_of_items.value * price_field_content
+
+    if(isNaN(number_of_items.value) || number_of_items.value <= 0)  {
+        number_of_items.value = 1
+    }
+}
+function grandtotal(){
+    let total_price = document.getElementsByClassName('total-price')
+    for(let i = 0; i < total_price.length; i++){
+    total_price_content = Number(total_price[i].innerText.replace('$', ""))
+    total += total_price_content
+    }
+
 }
 
-console.log("what about here")
+console.log(total)
